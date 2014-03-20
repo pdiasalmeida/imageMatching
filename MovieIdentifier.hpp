@@ -15,6 +15,8 @@ public:
 		void setMovie( std::string name, std::string imagePath );
 		void findMovie( std::string imagePath );
 
+		void setShowMatches(bool value);
+
 		void testDir( std::string path );
 
 		virtual ~MovieIdentifier();
@@ -26,6 +28,7 @@ public:
 		FeatureHandler* _fH;
 		double _ratio;
 		int _nMatchesThresh;
+		bool _showMatches;
 
 	private:
 		Image* processImage( std::string path );

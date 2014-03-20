@@ -15,6 +15,8 @@ public:
 	void setMonument( std::string name, std::string imagePath );
 	void findMonument( std::string imagePath );
 
+	void setShowMatches(bool value);
+
 	void testDir( std::string path );
 
 	virtual ~GeocodeMonuments();
@@ -26,6 +28,7 @@ protected:
 	FeatureHandler* _fH;
 	double _ratio;
 	int _nMatchesThresh;
+	bool _showMatches;
 
 private:
 	Image* processImage( std::string path );

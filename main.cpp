@@ -12,6 +12,7 @@ bool Log::debug = false;
 
 int main( int argc, char** argv ){
 //	GeocodeMonuments* gc = new GeocodeMonuments( DET_SURF, DES_SIFT, DESM_FB);
+//	gc->setShowMatches(true);
 //
 //	gc->setMonument( "Bom Jesus", "./monuments/bom_jesus.jpg" );
 //	gc->setMonument( "Sameiro", "./monuments/sameiro.jpg" );
@@ -19,6 +20,7 @@ int main( int argc, char** argv ){
 //	gc->testDir( "./monuments/tests" );
 
 	MovieIdentifier* mv = new MovieIdentifier( DET_SURF, DES_SIFT, DESM_FB );
+	mv->setShowMatches(true);
 
 	mv->setMovie( "The Grey", "./movies/grey.jpg" );
 	mv->setMovie( "The Silence of the Lambs", "./movies/lambs.jpg" );

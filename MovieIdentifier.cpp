@@ -13,6 +13,7 @@ MovieIdentifier::MovieIdentifier( Detector detID, DescriptorExtractor desID, Des
 
 	_ratio = 0.85;
 	_nMatchesThresh = 20;
+	_showMatches = false;
 }
 
 void MovieIdentifier::setMovie( std::string name, std::string imagePath )
@@ -37,6 +38,15 @@ void MovieIdentifier::findMovie( std::string imagePath )
 		{
 			std::cout << "Found movie for image '" << imagePath << "': " << it->first
 					<< ". With " << matchThreshold << " feature matches."<< std::endl;
+
+			if(_showMatches)
+			{
+				cv::Mat out;
+				img->drawMatches( it->second, matchThreshold, MA_GD, out, cv::Scalar(255,0,0,255) );
+				cv::namedWindow("Matches", CV_WINDOW_NORMAL);
+				cv::imshow("Matches", out);
+				cv::waitKey(0);
+			}
 			found = true;
 		}
 	}
@@ -62,6 +72,11 @@ Image* MovieIdentifier::processImage( std::string path )
 	_fH->computeDescriptors( img );
 
 	return img;
+}
+
+void MovieIdentifier::setShowMatches(bool value)
+{
+	_showMatches = value;
 }
 
 void MovieIdentifier::printFileNames()

@@ -14,6 +14,7 @@ GeocodeMonuments::GeocodeMonuments( Detector detID, DescriptorExtractor desID, D
 
 	_ratio = 0.85;
 	_nMatchesThresh = 18;
+	_showMatches = false;
 }
 
 void GeocodeMonuments::setMonument( std::string name, std::string imagePath )
@@ -38,6 +39,15 @@ void GeocodeMonuments::findMonument( std::string imagePath )
 		{
 			std::cout << "Found Monument for image '" << imagePath << "': " << it->first
 					<< ". With " << matchThreshold << " feature matches."<< std::endl;
+
+			if(_showMatches)
+			{
+				cv::Mat out;
+				img->drawMatches( it->second, matchThreshold, MA_GD, out, cv::Scalar(255,0,0,255) );
+				cv::namedWindow("Matches", CV_WINDOW_NORMAL);
+				cv::imshow("Matches", out);
+				cv::waitKey(0);
+			}
 			found = true;
 		}
 	}
@@ -63,6 +73,11 @@ Image* GeocodeMonuments::processImage( std::string path )
 	_fH->computeDescriptors( img );
 
 	return img;
+}
+
+void GeocodeMonuments::setShowMatches(bool value)
+{
+	_showMatches = value;
 }
 
 void GeocodeMonuments::printFileNames()
