@@ -25,6 +25,7 @@ protected:
 
 	FeatureHandler* _fH;
 	double _ratio;
+	int _nMatchesThresh;
 
 private:
 	Image* processImage( std::string path );
