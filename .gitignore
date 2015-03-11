@@ -3,9 +3,9 @@
 .project
 .cproject
 
-# Ignore image directories from previous project
-videothumbs*
-
 # Built objects and executables
 *.o
-imageMatching
+filterVideo
+monumentIdentifier
+movieIdentifier
+simpleTests

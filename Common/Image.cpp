@@ -165,7 +165,7 @@ void Image::drawMatches( Image* imgToMatch, int numberMatches, MatchesType type,
 
 		Log::notice( "Drawing matches between images " + _path + " and " + imgToMatch->_path );
 
-		cv::drawMatches( _image, _keypoints, imgToMatch->_image, imgToMatch->_keypoints, copy_matches,
+		cv::drawMatches( _roi, _keypoints, imgToMatch->_roi, imgToMatch->_keypoints, copy_matches,
 				result, color );
 	}
 	else
@@ -279,6 +279,9 @@ void Image::printCompareHistograms( Image* img )
 
 void Image::showHistogramAsImage()
 {
+	int section = 0;
+	std::string channels[] = {"B", "G", "R"};
+
 	for( int n = 0; n < (int) _histograms.size(); n++ )
 	{
 		double maxVal = 0;
@@ -295,7 +298,9 @@ void Image::showHistogramAsImage()
 			cv::line( histImg, cv::Point( h, 256 ), cv::Point( h, 256 - intensity ),
 					cv::Scalar::all( 0 ) );
 		}
-		std::string name = "Histogram channel " + Log::to_string( n );
+		if(n != 0 && n%3 == 0) section++;
+		int c = n - (3*section);
+		std::string name = "Histogram of channel " + channels[c] + " section " + Log::to_string( section );
 		cv::namedWindow( name, 0 );
 		cv::imshow( name, histImg );
 	}

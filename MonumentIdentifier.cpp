@@ -9,8 +9,8 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
-void setMovie( std::string name, std::string imagePath );
-void findMovie( std::string imagePath );
+void setMonument( std::string name, std::string imagePath );
+void findMonument( std::string imagePath );
 
 void setShowMatches(bool value);
 void testDir( std::string path );
@@ -20,7 +20,7 @@ void getFileList(std::string path);
 void printFileNames();
 
 std::set< std::string > _files;
-std::vector< std::pair< std::string, Image*  > > _movies;
+std::vector< std::pair< std::string, Image*  > > _monuments;
 
 FeatureHandler* _fH;
 double _ratio;
@@ -31,39 +31,39 @@ bool Log::debug = true;
 
 int main( int argc, char** argv )
 {
-	_fH = new FeatureHandler(DET_SURF, DES_SURF, DESM_FB);
+	_fH = new FeatureHandler( DET_SIFT, DES_SIFT, DESM_BF2 );
+
 	_ratio = 0.85;
-	_nMatchesThresh = 20;
-	_showMatches = false;
+	_nMatchesThresh = 18;
+	_showMatches = true;
 
-	setMovie( "The Grey", "./data/movies/grey.jpg" );
-	setMovie( "The Silence of the Lambs", "./data/movies/lambs.jpg" );
-	setMovie( "The Dark Knight", "./data/movies/batman.jpg" );
+	setMonument( "Bom Jesus", "./data/monuments/bom_jesus.jpg" );
+	setMonument( "Sameiro", "./data/monuments/sameiro.jpg" );
 
-	testDir( "./data/movies/tests" );
+	testDir( "./data/monuments/tests" );
 }
 
-void setMovie( std::string name, std::string imagePath )
+void setMonument( std::string name, std::string imagePath )
 {
 	Image* img = processImage(imagePath);
 
-	_movies.push_back( std::make_pair< std::string, Image* >( name, img) );
+	_monuments.push_back( std::make_pair< std::string, Image* >( name, img) );
 }
 
-void findMovie( std::string imagePath )
+void findMonument( std::string imagePath )
 {
 	Image* img = processImage(imagePath);
 
 	bool found = false;
-	std::vector< std::pair< std::string, Image*  > >::iterator it = _movies.begin();
-	for( ; !found && it != _movies.end(); it++ )
+	std::vector< std::pair< std::string, Image*  > >::iterator it = _monuments.begin();
+	for( ; !found && it != _monuments.end(); it++ )
 	{
 		_fH->findGoodMatches( img, it->second, _ratio );
 		int matchThreshold = img->getGoodMatches( it->second ).size();
 
 		if( matchThreshold >= _nMatchesThresh )
 		{
-			std::cout << "Found movie for image '" << imagePath << "': " << it->first
+			std::cout << "Found Monument for image '" << imagePath << "': " << it->first
 					<< ". With " << matchThreshold << " feature matches."<< std::endl;
 
 			if(_showMatches)
@@ -77,7 +77,7 @@ void findMovie( std::string imagePath )
 			found = true;
 		}
 	}
-	if( !found ) std::cout << "Was not able to find movie for image '" << imagePath << "'." << std::endl;
+	if( !found ) std::cout << "Was not able to find monument for image '" << imagePath << "'." << std::endl;
 }
 
 void testDir( std::string path )
@@ -87,7 +87,7 @@ void testDir( std::string path )
 	std::set< std::string >::iterator it = _files.begin();
 	for( ; it != _files.end(); it++ )
 	{
-		findMovie( path+"/"+*it );
+		findMonument( path+"/"+*it );
 	}
 }
 
