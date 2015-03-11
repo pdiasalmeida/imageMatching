@@ -8,25 +8,25 @@
 
 #include <opencv2/imgproc/imgproc.hpp>
 
-bool Log::debug = false;
+bool Log::debug = true;
 
 int main( int argc, char** argv ){
-//	GeocodeMonuments* gc = new GeocodeMonuments( DET_SURF, DES_SIFT, DESM_FB);
-//	gc->setShowMatches(true);
+	GeocodeMonuments* gc = new GeocodeMonuments( DET_SIFT, DES_SIFT, DESM_BF2);
+	gc->setShowMatches(true);
+
+	gc->setMonument( "Bom Jesus", "./monuments/bom_jesus.jpg" );
+	gc->setMonument( "Sameiro", "./monuments/sameiro.jpg" );
+
+	gc->testDir( "./monuments/tests" );
+
+//	MovieIdentifier* mv = new MovieIdentifier( DET_SURF, DES_SIFT, DESM_FB );
+//	mv->setShowMatches(true);
 //
-//	gc->setMonument( "Bom Jesus", "./monuments/bom_jesus.jpg" );
-//	gc->setMonument( "Sameiro", "./monuments/sameiro.jpg" );
+//	mv->setMovie( "The Grey", "./movies/grey.jpg" );
+//	mv->setMovie( "The Silence of the Lambs", "./movies/lambs.jpg" );
+//	mv->setMovie( "The Dark Knight", "./movies/batman.jpg" );
 //
-//	gc->testDir( "./monuments/tests" );
-
-	MovieIdentifier* mv = new MovieIdentifier( DET_SURF, DES_SIFT, DESM_FB );
-	mv->setShowMatches(true);
-
-	mv->setMovie( "The Grey", "./movies/grey.jpg" );
-	mv->setMovie( "The Silence of the Lambs", "./movies/lambs.jpg" );
-	mv->setMovie( "The Dark Knight", "./movies/batman.jpg" );
-
-	mv->testDir( "./movies/tests" );
+//	mv->testDir( "./movies/tests" );
 
 //	VideoTrack* vt = new VideoTrack( "track" );
 //	vt->trackFeatures( DET_FAST, DES_SURF, DESM_FB, 0.65f );

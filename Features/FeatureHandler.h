@@ -17,9 +17,9 @@ public:
 	void matchDescriptors( Image* first, Image* second );
 	void findGoodMatches( Image* image1, Image* image2, float ratio );
 
-	void setFeatureDetectorSIFT( double threshold, double edgeThreshold );
+	void setFeatureDetectorSIFT( int nFeatures, int nOctaveLayers, double threshold, double edgeThreshold, double sigma );
 	void setFeatureDetectorSURF( double hessianThreshold, int octaves, int octaveLayers );
-	void setFeatureDetectorFAST(int threshold, bool nmaxSupre);
+	void setFeatureDetectorFAST( int threshold, bool nmaxSupre );
 
 	void setDescriptorExtractorSIFT();
 	void setDescriptorExtractorSURF();

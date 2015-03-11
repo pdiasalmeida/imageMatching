@@ -365,20 +365,24 @@ void FeatureHandler::symmetryTest( std::vector< std::vector< cv::DMatch > > &mat
 	}
 }
 
-void FeatureHandler::setFeatureDetectorSIFT(double threshold, double edgeThreshold)
+void FeatureHandler::setFeatureDetectorSIFT( int nFeatures, int nOctaveLayers, double threshold,
+		double edgeThreshold, double sigma )
 {
-	cv::SiftFeatureDetector* sift = new cv::SiftFeatureDetector(threshold, edgeThreshold);
+	cv::SiftFeatureDetector* sift = new cv::SiftFeatureDetector(nFeatures, nOctaveLayers, threshold, edgeThreshold, sigma);
 	_feature_detector = sift;
 	_fd_name = "SIFT Feature Detector";
 
 	Log::notice("Feature detector set to SIFT: [" +
+					Log::to_string(nFeatures) + ", " +
+					Log::to_string(nOctaveLayers) + ", " +
 		            Log::to_string(threshold) + ", " +
-					Log::to_string(edgeThreshold) + "]");
+					Log::to_string(edgeThreshold) + ", " +
+					Log::to_string(sigma) +"]");
 }
 
 void FeatureHandler::setFeatureDetectorSIFT()
 {
-	setFeatureDetectorSIFT(0.04, 11.0);
+	setFeatureDetectorSIFT(0, 3, 0.04, 10.0, 1.6);
 }
 
 void FeatureHandler::setFeatureDetectorSURF(double hessianThreshold, int octaves, int octaveLayers)
