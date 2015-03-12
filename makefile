@@ -14,12 +14,12 @@ OBJECTSCNI=	$(SOURCESCNI:.cpp=.o)
 OBJECTSFVD=	$(SOURCESFVD:.cpp=.o)
 OBJECTSOBJ=	$(SOURCESOBJ:.cpp=.o)
 
-all: simpleTests contextIdentifier filterVideo objectDetect
+all: simpleTests entityIdentifier filterVideo objectDetect
 	
 simpleTests: $(OBJECTSCOM) $(OBJECTSTST)
 	$(CC) $(OBJECTSCOM) $(OBJECTSTST) -o $@ $(LDFLAGS)
 
-contextIdentifier: $(OBJECTSCOM) $(OBJECTSCNI)
+entityIdentifier: $(OBJECTSCOM) $(OBJECTSCNI)
 	$(CC) $(OBJECTSCOM) $(OBJECTSCNI) -o $@ $(LDFLAGS)
 
 filterVideo: $(OBJECTSCOM) $(OBJECTSFVD)
@@ -33,4 +33,4 @@ objectDetect: $(OBJECTSCOM) $(OBJECTSOBJ)
 
 clean:
 	rm -f $(OBJECTSCOM) $(OBJECTSTST) $(OBJECTSCNI) $(OBJECTSFVD) $(OBJECTSOBJ) \
-	simpleTests contextIdentifier filterVideo objectDetect
+	simpleTests entityIdentifier filterVideo objectDetect
