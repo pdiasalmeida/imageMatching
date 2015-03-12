@@ -69,7 +69,7 @@ void filterImagesByFeatures( Detector detID, DescriptorExtractor desID, Descript
 		while( !detectedChange && aux != _images.end() )
 		{
 			featureHandler->findGoodMatches( *it, *aux, ratio );
-			float matchThreshold = (*it)->getImageMatchThreshold( *aux );
+			float matchThreshold = (*it)->getImageMatchConfidence( *aux );
 
 			if( matchThreshold > threshold )
 			{

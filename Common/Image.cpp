@@ -98,14 +98,16 @@ std::vector< cv::DMatch > Image::getGoodMatches( Image* toMatch )
 	return res;
 }
 
-float Image::getImageMatchThreshold(Image* imgToMatch)
+float Image::getImageMatchConfidence(Image* imgToMatch)
 {
 	float result = -1.0f;
+
 	std::map< std::string, image_match* >::iterator im = _matches.find( imgToMatch->_path );
 	if( im != _matches.end() )
 	{
-		result = *im->second->threshold;
+		result = im->second->confidence;
 	}
+
 	return result;
 }
 

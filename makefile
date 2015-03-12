@@ -1,29 +1,24 @@
 CC=			g++
-CFLAGS=		-c -g -O0 -Wall `pkg-config --cflags opencv`
-LDFLAGS=	`pkg-config --libs opencv`
+CFLAGS=		-c -g -O0 -Wall `pkg-config --cflags opencv libconfig++`
+LDFLAGS=	`pkg-config --libs opencv libconfig++`
 
 SOURCESCOM=	Common/Image.cpp Features/FeatureHandler.cpp
 SOURCESTST=	SimpleTests.cpp
-SOURCESGEO=	MonumentIdentifier.cpp
-SOURCESMOV=	MovieIdentifier.cpp
+SOURCESCNI=	ContextIdentifier.cpp
 SOURCESFVD=	FilterVideoThumbs.cpp
 
 OBJECTSCOM=	$(SOURCESCOM:.cpp=.o)
 OBJECTSTST=	$(SOURCESTST:.cpp=.o)
-OBJECTSGEO=	$(SOURCESGEO:.cpp=.o)
-OBJECTSMOV=	$(SOURCESMOV:.cpp=.o)
+OBJECTSCNI=	$(SOURCESCNI:.cpp=.o)
 OBJECTSFVD=	$(SOURCESFVD:.cpp=.o)
 
-all: simpleTests monumentIdentifier movieIdentifier filterVideo
+all: simpleTests contextIdentifier filterVideo
 	
 simpleTests: $(OBJECTSCOM) $(OBJECTSTST)
 	$(CC) $(OBJECTSCOM) $(OBJECTSTST) -o $@ $(LDFLAGS)
 
-monumentIdentifier: $(OBJECTSCOM) $(OBJECTSGEO)
-	$(CC) $(OBJECTSCOM) $(OBJECTSGEO) -o $@ $(LDFLAGS)
-
-movieIdentifier: $(OBJECTSCOM) $(OBJECTSMOV)
-	$(CC) $(OBJECTSCOM) $(OBJECTSMOV) -o $@ $(LDFLAGS)
+contextIdentifier: $(OBJECTSCOM) $(OBJECTSCNI)
+	$(CC) $(OBJECTSCOM) $(OBJECTSCNI) -o $@ $(LDFLAGS)
 
 filterVideo: $(OBJECTSCOM) $(OBJECTSFVD)
 	$(CC) $(OBJECTSCOM) $(OBJECTSFVD) -o $@ $(LDFLAGS)
@@ -32,5 +27,5 @@ filterVideo: $(OBJECTSCOM) $(OBJECTSFVD)
 	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	rm -f $(OBJECTSCOM) $(OBJECTSTST) $(OBJECTSGEO) $(OBJECTSMOV) $(OBJECTSFVD) \
-	simpleTests monumentIdentifier movieIdentifier filterVideo
+	rm -f $(OBJECTSCOM) $(OBJECTSTST) $(OBJECTSCNI) $(OBJECTSFVD) \
+	simpleTests contextIdentifier filterVideo

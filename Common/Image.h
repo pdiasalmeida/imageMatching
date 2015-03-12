@@ -22,7 +22,7 @@ public:
 	cv::Mat getDescriptors();
 	std::vector< cv::DMatch > getGoodMatches( Image* toMatch );
 
-	float getImageMatchThreshold(Image* imgToMatch);
+	float getImageMatchConfidence(Image* imgToMatch);
 	std::vector< float > getHistogramCompareThresholds( Image* img );
 
 	void setKeypoints(std::vector< cv::KeyPoint > keypoints);

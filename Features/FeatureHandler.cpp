@@ -252,24 +252,24 @@ void FeatureHandler::findGoodMatches( Image* image1, Image* image2, float ratio 
 	image_match* m1 = ( image1->_matches.find( image2->_path ) )->second;
 	image_match* m2 = ( image2->_matches.find( image1->_path ) )->second;
 
-	m1->ratio = m2->ratio = &ratio;
+	m1->ratio = m2->ratio = ratio;
 	ratioTest( image1->_path, m1 );
 	ratioTest( image2->_path, m2 );
 
 	symmetryTest( m1, m2 );
 
-	int kps = ( image1->_keypoints.size() > image2->_keypoints.size() ) ?
-			image2->_keypoints.size() :
-			image1->_keypoints.size();
-	float thresh = (float) m1->goodMatches.size() / (float) kps;
+	int initial = ( m1->initialKnnMatches.size() > m2->initialKnnMatches.size() ) ?
+			m2->initialKnnMatches.size() :
+			m1->initialKnnMatches.size();
+	float confidence =  (float) m1->goodMatches.size() / (float)initial;
 
-	m1->threshold = &thresh;
-	m2->threshold = &thresh;
+	m1->confidence = confidence;
+	m2->confidence = confidence;
 }
 
 void FeatureHandler::ratioTest( std::string image, image_match* im )
 {
-	Log::notice( "Applying ratioTest[ratio=" + Log::to_string( (*im->ratio) ) + "] to matches between image '" +
+	Log::notice( "Applying ratioTest[ratio=" + Log::to_string( (im->ratio) ) + "] to matches between image '" +
 			image + "' and image '" + im->imageMatched + "'" );
 
 	std::vector< std::vector<cv::DMatch> > survivingmatches;
@@ -277,16 +277,16 @@ void FeatureHandler::ratioTest( std::string image, image_match* im )
 	clock_t t;
 	t = clock();
 
-	int removed = ratioTest( im->initialKnnMatches, survivingmatches, *im->ratio );
+	int removed = ratioTest( im->initialKnnMatches, survivingmatches, im->ratio );
 
 	t = clock() - t;
 	float calcDuration = ( (float) t ) / CLOCKS_PER_SEC;
 
-	im->ratioTestRemoved = &removed;
+	im->ratioTestRemoved = removed;
 	im->survivingRTMatches = survivingmatches;
 
 	Log::notice( "Ratio test finished in " + Log::to_string( calcDuration ) + " seconds. Removed " +
-			Log::to_string( *im->ratioTestRemoved ) + " matches, retained " +
+			Log::to_string( im->ratioTestRemoved ) + " matches, retained " +
 			Log::to_string( int( im->survivingRTMatches.size() ) ) );
 }
 

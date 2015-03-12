@@ -18,28 +18,17 @@ struct image_match
 	std::vector< std::vector< cv::DMatch > > initialKnnMatches;
 	std::vector< std::vector< cv::DMatch > > survivingRTMatches;
 	std::vector< cv::DMatch > goodMatches;
-	float* ratio;
-	double* confidence;
-	int* ratioTestRemoved;
-	int* symetryTestRemoved;
-	float* threshold;
+	float ratio;
+	double confidence;
+	int ratioTestRemoved;
+	int symetryTestRemoved;
 
 	image_match()
 	{
-		ratio = NULL;
-		confidence = NULL;
-		ratioTestRemoved = NULL;
-		symetryTestRemoved = NULL;
-		threshold = NULL;
-	}
-
-	~image_match()
-	{
-		delete ratio;
-		delete confidence;
-		delete ratioTestRemoved;
-		delete symetryTestRemoved;
-		delete threshold;
+		ratio = -1.0f;
+		confidence = -1.0;
+		ratioTestRemoved = -1;
+		symetryTestRemoved = -1;
 	}
 };
 

@@ -6,6 +6,5 @@
 # Built objects and executables
 *.o
 filterVideo
-monumentIdentifier
-movieIdentifier
+contextIdentifier
 simpleTests
