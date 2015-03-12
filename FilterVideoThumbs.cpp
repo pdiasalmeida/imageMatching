@@ -33,17 +33,25 @@ int main(int argc, char** argv)
 	_path = "data/videothumbs";
 	getFileList();
 
-	//filterImagesByFeatures( DET_FAST, DES_SURF, DESM_FB, 0.65f, 0.05f );
-	//printRejectedImages();
+	clock_t t;
+	t = clock();
 
-	filterImagesByHistograms(4, CV_COMP_CORREL, 0.92f);
+	filterImagesByFeatures( DET_FAST, DES_SURF, DESM_FB, 0.65f, 0.05f );
 	printRejectedImages();
+
+//	filterImagesByHistograms(4, CV_COMP_CORREL, 0.92f);
+//	printRejectedImages();
 
 	//filterImagesByHistograms(3, CV_COMP_INTERSECT, 610000.0f);
 	//printRejectedImages();
 
 	//filterImagesByHistograms(3, CV_COMP_CHISQR, 93000.0f);
 	//printRejectedImages();
+
+	t = clock() - t;
+	float calcDuration = ( (float) t ) / CLOCKS_PER_SEC;
+
+	Log::notice( "Program finished in " + Log::to_string ( calcDuration ) + " seconds.");
 }
 
 void proccessImagesFeatures( FeatureHandler* featureHandler )
