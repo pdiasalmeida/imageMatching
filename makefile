@@ -4,7 +4,7 @@ LDFLAGS=	`pkg-config --libs opencv libconfig++`
 
 SOURCESCOM=	Common/Image.cpp Features/FeatureHandler.cpp
 SOURCESTST=	SimpleTests.cpp
-SOURCESCNI=	ContextIdentifier.cpp
+SOURCESCNI=	EntityIdentifier.cpp
 SOURCESFVD=	FilterVideoThumbs.cpp
 SOURCESOBJ=	ObjectDetect.cpp
 

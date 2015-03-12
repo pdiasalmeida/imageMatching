@@ -6,6 +6,6 @@
 # Built objects and executables
 *.o
 filterVideo
-contextIdentifier
+entityIdentifier
 simpleTests
 objectDetect
